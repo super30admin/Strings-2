@@ -1,0 +1,40 @@
+//Time Complexity: O(n)
+//Space Complexity: O(1)
+//Accepted in LeetCode: Yes
+
+//Approach:
+//1. Have two pointers. Iterate over the haystack string until needle is found.
+//2. If needle is not found, then resume the search from the next position of the wrong match.
+
+class Solution {
+    public int strStr(String haystack, String needle) {        
+        boolean flag = true;
+        if(needle.length()==0) return 0;
+        int ptr1 =0;
+        int ptr2 =0;
+        while(ptr1<haystack.length())
+        {
+            if(haystack.charAt(ptr1)==needle.charAt(ptr2))
+            {          
+                ptr1++;
+                ptr2++;  
+                if(ptr2==needle.length())
+                {
+                    return (ptr1-needle.length());
+                }
+            }
+            else
+            {
+                if(ptr2==0)
+                    ptr1++;
+                else
+                {
+                    ptr1 = ptr1-ptr2+1;
+                    ptr2=0;
+                }
+            }
+        }
+       
+        return -1;
+    }
+}
