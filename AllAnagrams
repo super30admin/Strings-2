@@ -3,6 +3,9 @@ Time m * klogk where k is the window size
 Space O(n + k) character arrays for string p and wnidow size
 Leetcode yes
 problem NOT OPTIMAL
+
+Take substrings of window size from string s , sort it and compare it with sorted p string, if they are equal then starting 
+index of that substring is stored in the result
 *****************/
 
 class Solution {
