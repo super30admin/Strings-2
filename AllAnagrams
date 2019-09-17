@@ -1,0 +1,46 @@
+/****************
+Time m * klogk where k is the window size 
+Space O(n + k) character arrays for string p and wnidow size
+Leetcode yes
+problem NOT OPTIMAL
+
+Take substrings of window size from string s , sort it and compare it with sorted p string, if they are equal then starting 
+index of that substring is stored in the result
+*****************/
+
+class Solution {
+    public List<Integer> findAnagrams(String s, String p) {
+        
+        int windowSize = p.length();
+        List<Integer> result = new ArrayList<>();
+        
+        if(p.length() > s.length())
+            return result;
+        
+        char[] parr = p.toCharArray();
+        Arrays.sort(parr);
+        String pModified = String.valueOf(parr);
+        int i =0;
+        
+        while(i+windowSize-1 <s.length())
+        {   
+            String s2 = s.substring(i,i+ windowSize);
+            String res = sortArr(s2);
+            if(res.equals(pModified))
+            {
+                // System.out.println(s2 + " " + i);
+                result.add(i);
+            }
+            i++;
+        }
+        
+        return result;
+    }
+    
+    public static String sortArr(String s2)
+    {
+        char[] arr = s2.toCharArray();
+        Arrays.sort(arr);
+        return String.valueOf(arr);
+    }
+}
