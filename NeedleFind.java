@@ -15,6 +15,5 @@ class Solution {
 
 //TC:O(h)
 //SC:O(1)
-<p>
+
 //Here first we will calcualte the length of the two strings, then we will traverse till haystack-needle and compare the substring from the beginning index to the size of needle with  the needle.
-</p>
