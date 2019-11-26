@@ -1,43 +1,27 @@
 class Solution {
     public List<Integer> findAnagrams(String s, String p) {
-        
-        List<Integer> res = new ArrayList<>();
-        
-        Map<Character, Integer> map = new HashMap<>();
-        
-        for (char ch : p.toCharArray()) {
-            map.put(ch, map.getOrDefault(ch, 0) + 1);
-        }
-        
-        int count = 0;
-        
-        for (int i = 0; i < s.length(); i++) {
-            char ch = s.charAt(i);
-            if (map.containsKey(ch)) {
-                map.put(ch, map.get(ch) - 1);
-                if (map.get(ch) == 0) {
-                    count++;
-                }
-            }
-            
-            if (i >= p.length() - 1) {
-                int leftIndex = i - (p.length() - 1);
-                
-                if (count == map.size()) {
-                    res.add(leftIndex);
-                }
-                
-                ch = s.charAt(leftIndex);
-                
-                if (map.containsKey(ch)) {
-                    if (map.get(ch) == 0) {
-                        count--;
-                    }
-                    map.put(ch, map.get(ch) + 1);
-                }
+        List<Integer> indices = new ArrayList<>();
+        for(int i = 0; i < s.length() - p.length()+1; i++){
+            String str = s.substring(i, p.length()+i);
+            if(isAnagram(str, p)){
+                indices.add(i);
             }
         }
-        
-        return res;
+        return indices;
+    }
+    
+    private boolean isAnagram(String s1, String s2) {
+         char[] word1 = s1.toCharArray();
+     char[] word2 = s2.toCharArray();
+     Arrays.sort(word1);
+     Arrays.sort(word2);
+     return Arrays.equals(word1, word2);
     }
 }
+
+//Leetcode last test case Time limit exceeded
+//SC:O(n) extra character array
+//TC:O(nlogn+mlogm) sorting two strings to check anagrams
+
+//Approach: We will traverse to S.length-P.length and compare the substring with P to check whther they are anagram of each other.
+// To check whether these two strings are anagram, we will create a isAnagram function, where we will covert the strings to characterArray and sort them and check both thses sorted characterArrays.
