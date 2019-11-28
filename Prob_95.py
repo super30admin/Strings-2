@@ -1,12 +1,12 @@
 # leetode 28
 #bruteforce --  check each element in pattern with j pointer and i pointer (keep incrementing till there is a match)and in if i and j does not match bring the j pointer in pattern to befinning and the i pointer to 2nd element in super string and keep repeating he same
-#optimal klu -- time
+#optimal klm -- time
 #space
 
-#find the klu array:
+#find the klm array:
 #algo : with this we are finding prefixes and sufixes,
 # number the patterrn array and ge the klu algo
-#by default all the klu array elements are initiated to 0 and then the elements are brought numberes according to the matching elemenets
+#by default all the klm array elements are initiated to 0 and then the elements are brought numberes according to the matching elemenets
 
 class Solution:
     def strStr(self, haystack, needle):
