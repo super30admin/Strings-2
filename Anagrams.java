@@ -11,17 +11,24 @@ class Solution {
     }
     
     private boolean isAnagram(String s1, String s2) {
-         char[] word1 = s1.toCharArray();
-     char[] word2 = s2.toCharArray();
-     Arrays.sort(word1);
-     Arrays.sort(word2);
-     return Arrays.equals(word1, word2);
+        char[] aArr = s1.toCharArray(), bArr = s2.toCharArray();
+        if (aArr.length != bArr.length)
+            return false;
+        int[] counts = new int[26]; 
+        for (int i = 0; i < aArr.length; i++){
+            counts[aArr[i]-97]++;  
+            counts[bArr[i]-97]--;  
+        }
+        // If the strings are anagrams, the counts array will be full of zeros
+        for (int i = 0; i<26; i++)
+            if (counts[i] != 0)
+                return false;
+        return true;
     }
 }
 
-//Leetcode last test case Time limit exceeded
-//SC:O(n) extra character array
-//TC:O(nlogn+mlogm) sorting two strings to check anagrams
 
-//Approach: We will traverse to S.length-P.length and compare the substring with P to check whther they are anagram of each other.
-// To check whether these two strings are anagram, we will create a isAnagram function, where we will covert the strings to characterArray and sort them and check both thses sorted characterArrays.
+//SC:O(n) extra character array
+//TC:O(N) 
+
+//Approach:Store the string char in char array and compare the two char arrays to check for anagram
