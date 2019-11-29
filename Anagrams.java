@@ -31,4 +31,4 @@ class Solution {
 //SC:O(n) extra character array
 //TC:O(N) 
 
-//Approach:Store the string char in char array and compare the two char arrays to check for anagram
+//Approach:Store the string char in char array and we will increase the value at location and for another string we will decrase the value, we will check the resultant array has all zero elements
