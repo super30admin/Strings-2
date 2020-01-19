@@ -1,7 +1,7 @@
 # Runs on Leetcode
     # m is length of s and n is length of p
       # Runtime - O(m+n)
-      # Space - O(n) 
+      # Space - O(1) 
       
 
 class Solution:
