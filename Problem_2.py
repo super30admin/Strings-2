@@ -25,10 +25,8 @@ class Solution:
             if i >= len(p):
                 if s[i-len(p)] in d:
                     d[s[i-len(p)]] += 1
-                    if d[s[i-len(p)]] >= 1:
+                    if d[s[i-len(p)]] == 1:
                         match -= 1
-                        if match == len(p):
-                            result.append(i-len(p)+1)
                             
             if match == len(d):
                 result.append(i-len(p)+1)
