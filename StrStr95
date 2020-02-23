@@ -1,0 +1,129 @@
+class Solution {
+    public int strStr(String haystack, String needle) {
+        if(needle == null || needle.length() == 0) { return 0;}
+        if(haystack == null || haystack.length() == 0) { return -1; }
+        if( needle.length()  > haystack.length() ) {  return -1; }
+        
+        int l = 0;
+        int h = 0 ;
+        boolean found = false;
+        int index = 0;
+        int nl = needle.length();
+        // int lps array
+        int[] lps = getLpsArray(needle) ;
+        for(int k =0 ;k < lps.length ; k ++) {
+            System.out.println("k:  "+k +":"+lps[k]); 
+        }
+        int i = 0;
+         int cnt = 0;
+         int lpIndex = 0;
+         while(index < haystack.length()   ) {
+            // check for each index until matches
+             if(haystack.charAt(index) == needle.charAt(i)  ) {
+                 i ++;
+                
+                 index++ ;
+             
+              }
+              // if we found all elements in needle matches in sequence return current index - lenth of needle
+                // that shows actuval matche started 
+               if ( i == nl) {
+                      System.out.println("matched found  end " + index +": i" +  i); 
+                  return (index - i);
+              }
+               // not mtaches , we no need start from index 0 . we need to get from lps array.
+               // set the start index (i) value to lps[i-1]
+                else if( index <  haystack.length() && haystack.charAt(index) != needle.charAt(i)) {
+                     System.out.println("not  matched " + index +": i" + i); 
+                     if(i <= 0) {
+                       i = 0; 
+                         index ++;
+                     }
+                     else {
+                       System.out.println("lps index :" + (i-1) +":" + lps[i-1]);  
+                       i = lps[i-1];
+                       lpIndex = i  ;  
+                      }
+                      
+                }
+              //index ++;
+         }
+        
+        // BROOTST FORCE SIOLUTION
+//         while(haystack.length()   > index ) {
+//             int cnt = 0;
+              
+//             for(int i = 0 ; i < needle.length() ; i ++ ) {
+                 
+//                 if(haystack.charAt(index) == needle.charAt(i)) {
+                    
+//                     index++;
+//                     h ++;
+//                     cnt ++;
+//                 }else{
+                    
+//                     index++;
+//                     l++;
+//                     index = l;
+                    
+//                     break;
+//                 }
+//                 if( haystack.length()  == index ) break;
+//              }
+            
+//             if (cnt == needle.length() ) {
+//                 found = true;
+              
+//                    break;    
+//                 }
+            
+//         }
+//         if(found)
+//         return l;
+        return -1;
+    }
+    
+    
+    private int[] getLpsArray(String input) {
+        // Steps 1 by deafult Lps[0] = 0;
+        // step 2 define two indexes at 0 (i) and 1 (j)
+        // step 3 if input[i] == input[j]
+        //  step 4 matches lps[j] = i+1 then increment i and j by 1
+        //  step 5 not matchs  if i = 0  lps[j] = 0 otherwise i = lps[i-1] increment  j by 1 
+        //  go to step 3
+        int ln = input.length();
+        int[] lps = new int[ln];
+        //step1
+        lps[0] = 0;  
+        //step 2
+        int i = 0;
+        int j = 1;
+        while(j < ln ) {
+           System.out.println("i" + i + "j" +j + "len" +ln );
+          if(input.charAt(i) == input.charAt(j)) {
+               i = i+1;
+            lps[j] = i;
+            
+             j = j+1;
+          } else {
+             if(i <= 0){ 
+                 i = 0 ;
+                 lps[j] = i;
+                 j++;
+             } 
+             else {
+                 i = lps[i-1] ;
+               //  j ++;
+                
+             }
+             //lps[j] = 0 ; 
+          //   j = j +1;
+          }
+            
+            
+        }
+         
+   return lps;    
+        
+    }
+}
