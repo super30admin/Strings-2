@@ -48,34 +48,6 @@ class Solution:
             fast += 1
         return slow - fast if fast == len(needle) else -1
 
-    def _build_lps(self, pattern: str) -> list:
-        """
-            Helper method for strStr.
-            Returns longest proper suffix array for string pattern.
-            Each lps_array[i] is the length of the longest proper prefix
-            which is equal to suffix for pattern ending at character i.
-            Proper means that whole string cannot be prefix or suffix.
-
-            Time complexity: O(m)
-            Space complexity: O(1)
-            m is the length of the pattern, space used for lps array isn't included.
-        """
-        m = len(pattern)
-        lps_array = [0] * m
-        i, j = 1, 0  # start from the 2nd character in pattern
-        while i < m:
-            if pattern[i] == pattern[j]:
-                lps_array[i] = j + 1
-                j += 1
-                i += 1
-            else:
-                if j > 0:
-                    j = lps_array[j - 1]
-                else:
-                    lps_array[i] = 0
-                    i += 1
-        return lps_array
-
     def strStr(self, haystack: str, needle: str) -> int:
 
         """
@@ -116,6 +88,33 @@ class Solution:
 
         # no match was found
         return -1
+
+    def _build_lps(self, pattern: str) -> list:
+        """
+            Helper method for strStr.
+            Returns longest proper suffix array for string pattern.
+            Each lps_array[i] is the length of the longest proper prefix
+            which is equal to suffix for pattern ending at character i.
+            Proper means that whole string cannot be prefix or suffix.
+
+            Time complexity: O(m)
+            Space complexity: O(1)
+            m is the length of the pattern, space used for lps array isn't included.
+        """
+        m = len(pattern)
+        lps_array = [0] * m
+        i, j = 1, 0  # start from the 2nd character in pattern
+        while i < m:
+            if pattern[i] == pattern[j]:
+                j += 1
+                lps_array[i] = j
+                i += 1
+            elif pattern[i] != pattern[j] and j > 0:
+                j = lps_array[j - 1]
+            elif pattern[i] != pattern[j] and j == 0:
+                lps_array[i] = 0
+                i += 1
+        return lps_array
 
 
 if __name__ == '__main__':
