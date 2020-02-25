@@ -1,5 +1,5 @@
 //Rabin - Karp Algorithm
-//TC - O(m + n)
+//TC - O(m * n)
 //SC - O(1)
 
 class Solution {
