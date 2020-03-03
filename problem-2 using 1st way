@@ -1,0 +1,40 @@
+//Time : O(n*m) where n is s string length and m is p string length
+//space: O(1) map of constant 26 char has been created
+//leetcode run: no, TLE error
+
+class Solution {
+    public List<Integer> findAnagrams(String s, String p) {
+       
+        List<Integer> res=new ArrayList<Integer>();
+       //for each char in string
+        for(int i=0;i<s.length()-p.length()+1;i++)
+        {
+            //make new hashmap of window length p character 
+            HashMap<Character, Integer> map=new HashMap<>();
+            //for p's length. create hashmap of window from s string
+            for(int j=i;j<i+p.length();j++)
+            {
+                char c=s.charAt(j);
+                map.put(c, map.getOrDefault(c,0)+1);
+            }
+            //after map is created, check the p string chars exist in map, if yes then decrease count
+            for(int k=0;k<p.length();k++)
+            {
+                char c=p.charAt(k);
+                if(map.containsKey(c))
+                {
+                    map.put(c,map.get(c)-1);
+                    if(map.get(c)==0)
+                        map.remove(c);
+                }
+            }
+            //if map is empty means all count matched and string found, add index i and in reuslt else do nothing if not found
+            if(map.size()==0)
+            {
+                //System.out.println("exist");
+                res.add(i);
+            }
+        }
+        return res;
+    }
+}
