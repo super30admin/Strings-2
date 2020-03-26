@@ -1,4 +1,4 @@
-# Problem 1 - Custom sort string
+# Problem 1 - Find All Anagrams in a String
 ## Time Complexity :
 O(P+S)
 
@@ -41,7 +41,7 @@ Yes. I tried coding the same method discussed in class. But, cannot figure out w
               return result
               
               
-# Problem 1 - strStr()
+# Problem 2 - strStr()
 ## Time Complexity :
 O(N*M)
 
