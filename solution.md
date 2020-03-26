@@ -43,10 +43,10 @@ Yes. I tried coding the same method discussed in class. But, cannot figure out w
               
 # Problem 1 - strStr()
 ## Time Complexity :
-O()
+O(N*M)
 
 ## Space Complexity :
-O()
+O(1)
 
 ## Did this code successfully run on Leetcode :
 Yes.
