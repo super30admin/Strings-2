@@ -1,4 +1,4 @@
-#Time Complexity:O(log n)
+#Time Complexity:O(nlog n)
 #Space complexity:O(1)
 #Ran successfully on leetcode:yes
 #Algorithm:
