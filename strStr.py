@@ -1,4 +1,4 @@
-#Time Complexity:O(n)
+#Time Complexity:O(mxn)
 #Space complexity:O(1)
 #Ran successfully on leetcode:Yes
 #Algorithm:
