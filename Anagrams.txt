@@ -1,0 +1,41 @@
+// Time Complexity : O(m)
+// Space Complexity : O(1)
+// Did this code successfully run on Leetcode : Yes
+// Any problem you faced while coding this : No
+
+class Solution {
+  public List<Integer> findAnagrams(String s, String p) {
+    List<Integer> r = new ArrayList<>();
+    int[] a = new int[26]; /* keep the track of character in p*/
+      
+     /* count of character in p*/
+    for(int i = 0;i < p.length();i++) 
+        a[p.charAt(i)-'a']++;
+    
+    int i = 0,j = 0; /* i is start and j is end pointer*/
+    int count = 0; /* count of character same as p*/
+    int l = p.length();
+    int n = s.length();
+         while(i < n && j < n)
+         {
+             if(a[s.charAt(j)-'a'] > 0) // if chacracter count is greater than 0 then increase count and decrease in hashsmap and increase end pointer
+             {
+                 count++;
+                 a[s.charAt(j)-'a']--;
+                 j++;
+             }
+             else // decrease count and increase in hashsmap and increase start pointer
+             {
+                 count--;
+                 a[s.charAt(i)-'a']++;
+                 i++;
+             }
+             /* if count is same as l */
+             if(count == l) 
+                 r.add(i);
+             
+             }
+        return r;
+        
+    }
+}
