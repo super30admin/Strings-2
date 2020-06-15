@@ -1,46 +1,53 @@
-// Sliding window
-// Time Complexity : O(mn); m length of p; n length of s 
+// Time Complexity : O(m)+O(n); m length of p, n length of s
 // Space Complexity : O(1)
-// Did this code successfully run on Leetcode : No
+// Did this code successfully run on Leetcode : Yes
 // Any problem you faced while coding this : No
 
-// 1. Maintain hashmap of chars in p. Iterate through s and once a char matches, increase the window to check if all elements of p are present
-// 2. For this, decrement count of chars of p and remove entry once count=0
-// If yes, add start index to result, if no then reset end
+// 1. Create a frequency map from given pattern and maintain counter variable denotes total number of deviations. it will always be equal to sum of absolute vals of values in map
+// 2. For incoming chars, decrease entry in map and if entry is non-negative decrease counter else increase counter
+// 3. For outgoing chars, increase entry in map and if entry is positive increase counter else decrease counter
+// 4. When counter==0, add start to result array
 
 class Solution {
 public:
     vector<int> findAnagrams(string s, string p) {
+        if(s.size()==0 || p.size()==0 || s.size()<p.size())
+            return {};
+        map<char, int> hash;
+        for(char c:p)
+            hash[c]++;
+        int start=0, end=0,counter=p.size();
         vector<int> result;
-        if(s.size()==0 || p.size()==0)
-            return result;
-        map<char,int> hashmap, hashmap_bkp;
-        for(char c: p){
-            if(hashmap.find(c) == hashmap.end())
-                hashmap[c] = 1;
-            else
-                hashmap[c]++;
-        }
-        hashmap_bkp = hashmap;
-        int start = 0, end=0, count=0;
+        // counter denotes total number of deviations. it will always be equal to sum of absolute vals of values in map
         while(end<s.size()){
-            if(hashmap.find(s[end]) != hashmap.end()){
-                start = end;
-                while(end-start<p.size() && hashmap.find(s[end]) == hashmap.end()){
-                    hashmap[s[end]]--;
-                    if(hashmap[s[end]] == 0)
-                        hashmap.erase(s[end]);
-                    end++;
-                }
-                if(hashmap.size() == 0)
-                    result.emplace_back(start);
+            
+            // in
+            if(hash.find(s[end]) != hash.end()){
+                hash[s[end]]--;
+                if(hash[s[end]] >= 0)
+                    counter--;
                 else
-                    end = start+1;
-                hashmap = hashmap_bkp;
+                    counter++;
             }
-            else{
-                end++;
+            end++;
+            
+            // out
+            if(end-start>p.size()){
+                if(hash.find(s[start]) != hash.end()){
+                    hash[s[start]]++;
+                    if(hash[s[start]] > 0)
+                        counter++;
+                    else
+                        counter--;
+                }
+                start++;
             }
+            cout<<counter<<endl;
+            cout<<s[start]<<" "<<s[end]<<" ";
+            
+            // perfect match
+            if(counter==0)
+                result.emplace_back(start);
         }
         return result;
     }
