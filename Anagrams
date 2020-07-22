@@ -1,0 +1,40 @@
+class Solution(object):
+    def findAnagrams(self, s, p):
+        result = []
+        pt1 =0
+        pt2 =0
+        dict = {}
+        for j in range(len(p)):
+
+            if(dict.get(p[j])):
+                dict[p[j]] +=1
+            else:
+                dict[p[j]]=1
+        match = 0
+        print((dict))
+        for i in range(len(s)):
+            if(dict.get(s[i])):
+                dict[s[i]] -=1
+                if(dict[s[i]] == 0):
+                    match +=1
+
+            if(i>=len(p)):
+                # print(dict)
+                c = str(s[i-len(p)])
+                print(c)
+                if(dict.get(c)):
+                    dict[c]+=1
+                    if(dict[c]==1):
+                        match -=1
+            if(match == len(dict)):
+
+                result.append(i-len(p)+1)
+
+        return result
+
+
+
+
+
+
+
