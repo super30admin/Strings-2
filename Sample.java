@@ -159,6 +159,11 @@ class Solution {
     }
 }
 
+// Time Complexity : O(m+n)
+// Space Complexity : O(n)
+// Did this code successfully run on Leetcode : Yes
+// Any problem you faced while coding this : None
+
 
 class Solution {
     public int strStr(String haystack, String needle) {
