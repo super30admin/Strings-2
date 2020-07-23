@@ -1,22 +1,24 @@
 # brute force solution
 # O(mn) time | O(1) space
+# using a sliding window. 
 class Solution:
     def strStr(self, haystack: str, needle: str) -> int:
         n = len(needle)
         if n==0: return 0
         
+        # we keep two pointers to traverse both the strings.
         p1, nptr = 0, 0
         while p1 < len(haystack)-n+1:
             if haystack[p1] == needle[nptr]:
-                p2 = p1
+                p2 = p1                 # use a new tmp pointer to compare the substring. this is done to not lose the position of the original pointer.
                 while nptr<n:
                     if haystack[p2] == needle[nptr]:
                         p2+=1
                         nptr+=1
-                        if nptr==n:
+                        if nptr==n:     # return the index of the beginning of the string match.
                             return p1
                     else:
-                        nptr=0
+                        nptr=0          # reset the pointer.
                         break
             p1+=1
         return -1
