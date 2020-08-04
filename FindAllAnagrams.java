@@ -1,33 +1,53 @@
-
-
-//Time Complexity : O(n) i.e s.length
-//Space Complexity : O(n)
-//Did it run on leetcode : yes
-//Did you face any problems  : no
+//Time Complexity : O(N(s) +N(p))
+//Space Complexity : O(1)
+//Did it run on leetcode  : yes
 
 class Solution {
-    public int lengthOfLongestSubstring(String s) {
+    public List<Integer> findAnagrams(String s, String p) {
+     
+        if(s == null || s.length() == 0)
+            return new ArrayList<>();
         
-        if(s == null || s.length() == 0 || s=="")
-            return 0;
-        
+        List<Integer> list = new ArrayList<>();
         HashMap<Character,Integer> map = new HashMap<>();
-        int count = 0;
-        int maxLength = Integer.MIN_VALUE;
-        int slow = 0 ;
-        int fast  = 0;
-        while(fast  < s.length()){
-            char c  = s.charAt(fast);
+        int match = 0;
+        for(int i = 0; i < p.length(); i++){
+             char c = p.charAt(i);
+            map.put(c, map.getOrDefault(c,0)+1);
+        }
+        
+        int in = 0;
+        
+        for(int i = 0 ; i < s.length() ;i++){
+            
+            char c = s.charAt(i);
+            
             if(map.containsKey(c)){
-                slow = Math.max(slow , map.get(c));
-                //map.put(c,fast+1);               
-            }   
-           map.put(c,fast+1); 
-           maxLength = Math.max(maxLength,fast-slow+1);
-            fast++;
+                int count =  map.get(c);
+                map.put(c, map.get(c)-1);
+                count--;
+                if(count == 0)
+                    match++;
+            }
+            if( i >= p.length()){
+                in = i - p.length();
+                char d= s.charAt(in);
+                if(map.containsKey(d)){
+                  int count = map.get(d);
+                  map.put(d,map.get(d)+1);
+                  count++;
+                  if(count == 1)
+                      match--;
+                }
+            }
+            
+            if(match == map.size())
+            {
+                list.add(i - p.length()+1);
+            }
             
         }
-        return maxLength;
         
+        return list;
     }
 }

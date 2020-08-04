@@ -1,33 +1,77 @@
-
-
-//Time Complexity : O(n) i.e s.length
-//Space Complexity : O(n)
-//Did it run on leetcode : yes
-//Did you face any problems  : no
-
+//Time Complexity : O(N)
+//Space Complexity : O(1)
+//Did it run on leetcode  : yes
 class Solution {
-    public int lengthOfLongestSubstring(String s) {
+    public int strStr(String haystack, String needle) {
         
-        if(s == null || s.length() == 0 || s=="")
+        int n = needle.length();
+        if(needle == null || n == 0)
             return 0;
         
-        HashMap<Character,Integer> map = new HashMap<>();
-        int count = 0;
-        int maxLength = Integer.MIN_VALUE;
-        int slow = 0 ;
-        int fast  = 0;
-        while(fast  < s.length()){
-            char c  = s.charAt(fast);
-            if(map.containsKey(c)){
-                slow = Math.max(slow , map.get(c));
-                //map.put(c,fast+1);               
-            }   
-           map.put(c,fast+1); 
-           maxLength = Math.max(maxLength,fast-slow+1);
-            fast++;
+        
+        int[] lps = getLPS(needle);
+        int[] lps = getLPS(needle);
+        int i = 0; 
+        int j = 0 ;
+        while( i < haystack.length()){
+            if(haystack.charAt(i) ==  needle.charAt(j))
+            {
+                i++;
+                j++;
+            }
+            if(j == needle.length())
+                return i - n;
             
+             if(i < haystack.length() && (j > 0 && haystack.charAt(i) != needle.charAt(j)))
+             {
+                 
+                 j = lps[j-1];     
+              }
+              
+              if( i < haystack.length() && (j == 0 &&  haystack.charAt(i) != needle.charAt(j))) 
+               {
+                   i++;
+               }   
         }
-        return maxLength;
+        return -1;
+     
+    }
+ 
+    private int[] getLPS(String needle){
+        
+        int slow = 0;
+        int fast = 1 ;
+        int[] lps = new int[needle.length()];
+      //  lps[0] = 0;
+        while(fast < needle.length()){
+            if(needle.charAt(slow) ==  needle.charAt(fast)){
+                slow++;
+                lps[fast] = slow;
+                fast++;
+                
+            }
+            else if(slow > 0 && needle.charAt(slow) != needle.charAt(fast)){
+                
+                slow = lps[slow-1];
+                
+            }
+            else if(slow == 0 && needle.charAt(slow) != needle.charAt(fast)){
+                
+                fast++;
+            }   
+        }
+        return lps;
+        
         
     }
+    
+    
 }
+    
+    
+    
+    
+    
+    
+
+
