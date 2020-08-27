@@ -1,0 +1,43 @@
+Since brute force approach is providing time complexity of O(nk) . We check all the possible subsrings of the string and see if they are anagrams or not
+Approach1 : Using Hashmap to store the frequency of anagram string and we will only check tow characters at a time by using window technique of size length of  pattern
+Time Complexity : O(n+k) ----> O(n)
+Space Complexity :O(1)
+class Solution {
+    public List<Integer> findAnagrams(String s, String p) {
+        int m=s.length();int n=p.length();
+        if (m<n) return new ArrayList<>();
+        List <Integer> result=new ArrayList<>();
+        HashMap<Character,Integer> map=new HashMap<>();
+        for (int i=0;i<n;i++){
+            char ch=p.charAt(i);
+            map.put(ch,map.getOrDefault(ch,0)+1);
+        }
+        //Check If anagram or not
+        int match=0;
+        for (int i=0;i<m;i++){ //Incoming Character
+           char in=s.charAt(i); 
+            if (map.containsKey(in)){
+                int cnt=map.get(in);
+                cnt--;
+                if (cnt==0) match++;
+                map.put(in,cnt);
+            }
+            // Outgoing Character
+            if(i>=p.length()){ // i==3, then out=0
+                char out=s.charAt(i-p.length());
+                if (map.containsKey(out)){
+                    int cnt=map.get(out);
+                    cnt++;
+                    if (cnt==1) match--;
+                    map.put(out,cnt);
+                    
+                }
+            }
+           if (match==map.size()){
+               result.add(i-p.length()+1);
+           }
+            
+        }
+       return result ;
+    }
+}
