@@ -1,0 +1,29 @@
+Approach 1: brute Force Approach
+Time Complexity : O(mn)
+Space Complexity :
+class Solution {
+    public int strStr(String haystack, String needle) {
+        int m=haystack.length(); int n=needle.length();
+        if (n>m){
+            return -1;
+        }
+        if (n==0){
+            return 0;
+        }
+         // Two pointer Approach
+        for (int i=0;i<m;i++){
+            int temp=i;
+            int j=0;
+            while(j<n && temp<m){
+                if(haystack.charAt(temp)==needle.charAt(j)){
+                    temp++;
+                    j++;
+                }else
+                    break;
+            }
+            if (j==n)
+                return i;
+        }
+        return -1;
+    }
+}
