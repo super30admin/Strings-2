@@ -1,6 +1,6 @@
 class Solution:
     def strStr(self, haystack: str, needle: str) -> int:
-        #Time: O(N)
+        #Time: O((N-M)M)
         #Space: O(1)
         
         if needle == "":
