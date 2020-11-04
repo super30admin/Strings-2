@@ -6,7 +6,7 @@ Step 1: Declare lengthNeedle (to store length of needle), lengthHaystack(to stor
         and windowStartPos(start position of window) and windowEndPos (end position of window) and initialize it with
         0 and lengthNeedle respectively for first iteration in while loop.
 Step 2: Check for the base case if lengthNeedle == 0, return 0
-Step 3: 
+Step 3: C
 
 """
 
