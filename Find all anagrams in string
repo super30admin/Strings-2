@@ -1,0 +1,42 @@
+class Solution {
+    public List<Integer> findAnagrams(String s, String p) {
+        int n = s.length();
+        int m = p.length();
+        List<Integer> result = new ArrayList<>();
+        
+        if(n < m) return result;
+        
+        Map<Character, Integer> mapS = new HashMap<>();
+        Map<Character, Integer> mapP = new HashMap<>();
+        
+        for(int i = 0; i< p.length(); i++){
+            mapP.put(p.charAt(i), mapP.getOrDefault(p.charAt(i), 0)+1);
+        }
+        
+        int start = 0;
+        int end;
+        for(end = m-1; end < n; end++){
+          //  System.out.println(start);
+        //    System.out.println(end);
+             mapS= createMap(start, end, s);
+            //System.out.println(mapS);
+            if(mapS.equals(mapP)){
+               // System.out.println("Neha");
+                result.add(start);
+            }
+            
+            
+            start++;
+        }
+        return result;
+    }
+    
+    public Map<Character, Integer> createMap(int start, int end, String s){
+        Map<Character, Integer> map = new HashMap<>();
+        for(int i = start; i <= end; i++){
+            map.put(s.charAt(i), map.getOrDefault(s.charAt(i), 0) + 1);
+        }
+        
+        return map;
+    }
+}
