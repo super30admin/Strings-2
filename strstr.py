@@ -1,0 +1,15 @@
+
+#Time Complexity: O((N-L)L)
+#Space Complexity: O(1)
+#Run on Leetcode: Yes
+#Any Issues: No
+
+
+class Solution:
+    def strStr(self, haystack: str, needle: str) -> int:
+        L, n = len(needle), len(haystack)
+
+        for start in range(n - L + 1):
+            if haystack[start: start + L] == needle:
+                return start
+        return -1
