@@ -1,3 +1,6 @@
+# Time Complexity: O(N)
+# Space Complexity: O(1)
+# Approach: Use Rabin Karp algorithm to calculate a rolling hash for every substring (constant time) of the haystack and compare it with the rolling hash of the needle. Return the first matching index.
 from functools import reduce
 class Solution(object):
     def strStr(self, haystack, needle):
