@@ -1,0 +1,22 @@
+# Time - O(len(haystack)*len(needle))
+# Space - O(1)
+# Ran on LC - YES, but Time Limit Exceed 
+
+# When letters match, check letters one by one in the substring and the main string
+# If letters don't match, go back to the initial point in haystack (reset) and continue
+
+class Solution:
+    def strStr(self, haystack: str, needle: str) -> int:
+        if needle == "": return 0
+        if len(needle) > len(haystack): return -1
+        for i in range(len(haystack)):
+            if haystack[i] == needle[0]:
+                startH, startN = i, 0
+                while startH < len(haystack) and startN < len(needle):
+                    if haystack[startH] != needle[startN]:
+                        break
+                    startH += 1
+                    startN += 1
+                    if startN == len(needle):
+                        return i
+        return -1
