@@ -1,5 +1,5 @@
 // Time - O(M+N)
-// Space - O(N)
+// Space - O(1)
 class Solution {
     public List<Integer> findAnagrams(String s, String p) {
         List<Integer> result = new ArrayList<>();
