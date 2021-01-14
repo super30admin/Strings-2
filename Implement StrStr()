@@ -1,0 +1,64 @@
+//TC: O(m+n) -> Building array + traversing haystack
+//Sc: O(m) => needle.length()
+
+//Approach: KMP Algorithm for pattern matching
+
+class Solution {
+    public int strStr(String haystack, String needle) {
+        if(needle.length()==0 || needle==null){
+            return 0;
+        }
+        
+        if(needle.length() > haystack.length()){
+            return -1;
+        }
+        
+        int[] lps = new int[needle.length()];
+        //Traversing haystack to build lps array
+        int slow = 0;
+        int fast = 1;
+        lps[0] = 0;
+        while(fast < needle.length()){
+            //if MATCH found
+            if(needle.charAt(fast) == needle.charAt(slow)){
+                slow++;
+                lps[fast] = slow;
+                fast++;
+            }
+            //if NO MATCH found
+             else{
+                if(slow > 0){
+                    slow = lps[slow-1];
+                }
+                else{
+                    lps[fast] = 0;
+                    fast++;
+                }
+            }
+        }
+
+//Traversing haystack and using results from LPS array
+        int i = 0;
+        int j = 0 ;
+        while(i < haystack.length()){
+            if(haystack.charAt(i)==needle.charAt(j)){
+                i++;
+                j++;
+                // System.out.println(i + " " + j);
+                if(j==needle.length()){
+                     return (i - needle.length());
+                }
+            }
+            else if(haystack.charAt(i)!=needle.charAt(j)){
+                if(j>0){
+                    j = lps[j-1];     //Retrieving info from lps[]
+                }else{
+                    i++;
+                }
+            }  
+        }
+        return -1;
+    }
+
+}
+
