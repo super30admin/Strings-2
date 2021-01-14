@@ -1,0 +1,56 @@
+//TC: O(m+n)
+//SC: O(1)
+
+//Approach:
+
+class Solution {
+    public List<Integer> findAnagrams(String s, String p) {
+        List<Integer> result = new ArrayList<>();
+        if(s==null || p==null || s.length()==0 || p.length()==0){
+            return result;
+        }
+        HashMap<Character,Integer> hmap = new HashMap<>();
+        for(Character c : p.toCharArray()){
+            if(!hmap.containsKey(c)){
+                hmap.put(c,1);
+            }else{
+                hmap.put(c, hmap.get(c)+1);
+            }
+        }
+
+        int count; 
+        int match = 0;        
+        for(int i = 0 ; i < s.length() ; i++){
+            char c = s.charAt(i);
+            System.out.println(hmap);
+            //incoming
+            if(hmap.containsKey(c)){
+                count = hmap.get(c);
+                count--;
+                //character Found
+                if(count==0){
+                    match++;
+                }
+                hmap.put(c, count);
+            }
+            //if sliding window size exceeds p.length()    
+            if(i >= p.length()){
+                    char outgoing = s.charAt(i - p.length());
+                    if(hmap.containsKey(outgoing)){
+                        count = hmap.get(outgoing);
+                        count++;
+                        //character Found
+                        if(count==1){
+                            match--;
+                        }
+                        hmap.put(outgoing, count); 
+                }
+            }
+            //if subpattern FOUND
+            if(match==hmap.size()){
+                result.add(i - p.length()+1);
+            }   
+        }
+        return result;
+    }
+}
