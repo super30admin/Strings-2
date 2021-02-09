@@ -1,0 +1,16 @@
+class Solution:
+    def strStr(self, haystack: str, needle: str) -> int:
+        if(not needle):
+            return 0;
+        k = len(needle);
+        # take a substring of size k in haystack and compare with needle string 
+        # and move the window
+        for i in range(0, len(haystack) - k + 1):
+            if(haystack[i:i+k] == needle):
+                return i;
+        return -1;
+    '''
+    n = length of haystack, l = length of needle
+    time complexity = O(n-l)*l
+    '''
+        
