@@ -3,8 +3,8 @@ class Solution:
     """
     Description: Given a string s and a non-empty string p, find all the start indices of p's anagrams in s
     
-    Time Complexity:
-    Space Complexity:
+    Time Complexity: O(len(s))
+    Space Complexity: O(len(p))
     
     Approach: Sliding window
     - maintain a dictionary from patterns with count of each character, and match (initiate with 0)
