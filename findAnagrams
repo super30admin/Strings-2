@@ -1,0 +1,47 @@
+class Solution {
+    public List<Integer> findAnagrams(String s, String p) {
+        
+        //438. Find All Anagrams in a String
+        //Time complexity : O(n) where n is the length of the string s
+        //Space compelxity : O(1)
+        
+        HashMap<Character,Integer> map = new HashMap<>();
+        List<Integer> result = new ArrayList<>();
+        int match =0;
+        for(int i =0;i< p.length();i++){
+            char ch = p.charAt(i);
+            map.put(ch,map.getOrDefault(ch,0)+1);
+        }
+        
+        for(int i =0;i<s.length();i++){
+            char in = s.charAt(i);
+            if(map.containsKey(in)){
+                int count = map.get(in);
+                count--;
+                if(count ==0)
+                    match++;
+                map.put(in,count);
+            }
+          
+            
+            //window exceeds the length of the p
+            if(i>=p.length()){
+                char out = s.charAt(i-p.length());
+            
+            if(map.containsKey(out)){
+                 int c = map.get(out);
+                 c++;
+                if(c ==1)
+                    match--;
+                map.put(out,c);
+                
+            }
+                
+            }
+            if(match == map.size())
+                result.add(i-match+1);
+               
+        }
+        return result;
+    }
+}
