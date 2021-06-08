@@ -1,5 +1,5 @@
 # TC: O(N) since we are iterating over all the characters of the string once. 
-# SC: O(K) where K is the size of the hashmap or the number of unique characters in the anagram string. 
+# SC: O(1) since we are using a hashmap of character array which is constant space of 26 characters.
 
 class Solution:
     def findAnagrams(self, s: str, p: str) -> List[int]:
