@@ -1,0 +1,45 @@
+package strings2;
+
+//TC : o(n) , largest string length
+//SC : o(1)
+//approach : take freq map of pattern and use sliding window.
+public class findAllAnagrams {
+    public List<Integer> findAnagrams(String s, String p) {
+        List<Integer> result = new ArrayList<>();
+        //null check
+        if(s == null || s.length() == 0 || p.length() > s.length() ) return result;
+         HashMap<Character, Integer> map = new HashMap<>();
+         
+         for(int i=0; i<p.length(); i++){
+             char c = p.charAt(i);
+             map.put(c, map.getOrDefault(c,0)+1);
+         }
+         
+         int match = 0;
+         for(int i=0; i<s.length(); i++){
+             char in = s.charAt(i); // take incoming char
+             if(map.containsKey(in)){ // if incoming character is in map
+                 int count = map.get(in);
+                 count --;
+                 if(count == 0) match++;
+                 map.put(in, count);
+             } 
+             
+             
+             //out char
+             if(i >= p.length()){
+                 char out = s.charAt(i-p.length());
+             if(map.containsKey(out)){ // if outgoing character is in map
+                 int count = map.get(out);
+                 count ++;
+                 if(count == 1) match--;
+                 map.put(out, count);
+             }                 
+           }
+             if(match == map.size()){
+                 result.add(i-p.length() +1);
+             }
+         }
+         return result;
+     }
+ }
