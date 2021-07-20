@@ -3,6 +3,9 @@
 # Did this code successfully run on Leetcode : Yes
 # Any problem you faced while coding this : No
 
+
+#kmp algo
+#lowest common prefix suffix
 class Solution:
     def strStr(self, haystack: str, needle: str) -> int:
         if len(needle) == 0:
