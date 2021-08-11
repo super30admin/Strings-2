@@ -1,7 +1,7 @@
 # Strings-2
 
+## Problem1
 
-## Problem1 
 Implement strStr() (https://leetcode.com/problems/implement-strstr/)
 
 Return the index of the first occurrence of needle in haystack, or -1 if needle is not part of haystack.
@@ -20,7 +20,71 @@ What should we return when needle is an empty string? This is a great question t
 
 For the purpose of this problem, we will return 0 when needle is an empty string. This is consistent to C's strstr() and Java's indexOf().
 
-## Problem2 
+//Time Complexity = O(M+N);
+//Space Complexity = O(1);
+
+class Solution {
+public int strStr(String haystack, String needle) {
+
+        if(needle.length() == 0 || needle == null) {
+            return 0;
+        }
+        if(haystack.length() < needle.length()) {
+            return -1;
+        }
+
+        int[] lps = lps(needle);
+        int i = 0;
+        int j = 0;
+        int m = haystack.length();
+        int n = needle.length();
+
+        while(i < m) {
+            if(haystack.charAt(i) == needle.charAt(j)) {
+                j++;
+                i++;
+                if(j == n) {
+                    return i - n;
+                }
+            } else {
+                if(j > 0) {
+                    j = lps[j-1];
+                } else {
+                    i++;
+                }
+            }
+        }
+        return -1;
+
+    }
+
+    private int[] lps(String needle) {
+        int[] lps = new int[needle.length()];
+
+        int i = 1;
+        int j = 0;
+
+        while(i < needle.length()) {
+            //i ==j
+            if(needle.charAt(i) == needle.charAt(j)) {
+                j++;
+                lps[i] = j;
+                i++;
+            } else {
+                if(j > 0) {
+                    j = lps[j-1];
+                } else {
+                    lps[i] = 0;
+                    i++;
+                }
+            }
+        }
+        return lps;
+    }
+
+}
+
+## Problem2
 
 Find All Anagrams in a String (https://leetcode.com/problems/find-all-anagrams-in-a-string/)
 
@@ -53,3 +117,50 @@ Explanation:
 The substring with start index = 0 is "ab", which is an anagram of "ab".
 The substring with start index = 1 is "ba", which is an anagram of "ab".
 The substring with start index = 2 is "ab", which is an anagram of "ab".
+
+//Time Complexity = O(M+N);
+//Space Complexity = O(M);
+
+class Solution {
+public List<Integer> findAnagrams(String s, String p) {
+List<Integer> result = new ArrayList();
+if(s == null || s.length() == 0 || s.length() < p.length()) {
+return result;
+}
+
+        HashMap<Character, Integer> pMap = new HashMap();
+
+        for(char c : p.toCharArray()) {
+            pMap.put(c, pMap.getOrDefault(c,0) + 1);
+        }
+
+        int match = 0;
+
+        for(int i = 0; i < s.length(); i++) {
+            //in
+            char in = s.charAt(i);
+            if(pMap.containsKey(in)) {
+                pMap.put(in, pMap.get(in) - 1);
+
+                if(pMap.get(in) == 0) {
+                    match++;
+                }
+            }
+            //out
+            if(i >= p.length()) {
+                char out = s.charAt(i-p.length());
+                if(pMap.containsKey(out)) {
+                    pMap.put(out, pMap.get(out) + 1);
+                    if(pMap.get(out) == 1) {
+                        match--;
+                    }
+                }
+            }
+            if(match == pMap.size()) {
+                result.add(i-p.length() + 1);
+            }
+        }
+        return result;
+    }
+
+}
