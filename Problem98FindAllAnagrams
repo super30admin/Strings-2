@@ -1,0 +1,65 @@
+// Time Complexity : O(n)
+// Space Complexity : O(n)
+// Did this code successfully run on Leetcode : Yes
+// Any problem you faced while coding this : No
+
+
+// Your code here along with comments explaining your approach
+
+/**
+ * @param {string} s
+ * @param {string} p
+ * @return {number[]}
+ */
+var findAnagrams = function(s, p) {
+    //Solution: Sliding window with HashMap
+    let res=[];
+    if(p==="" || s==="" || p===null || s===null) return res;
+   
+    let map =new Map();
+    // Frequency map for the string p
+    for(let i=0;i<p.length;i++)
+{
+    if(map.has(p.charAt(i))){
+        map.set(p.charAt(i),map.get(p.charAt(i))+1)
+    }
+    else{
+    map.set(p.charAt(i),1);
+    }
+}    
+    let match=0;
+ //Processing window
+    
+    for(let i=0;i<s.length;i++){
+        let inCh;
+            inCh= s.charAt(i)
+        //incoming character
+        if(map.has(inCh)){
+            let cnt= map.get(inCh);
+            cnt--
+            map.set(inCh,cnt);
+            if(cnt===0) match++;
+          }
+        //outgoing character
+        
+        if(i>=p.length-1){
+            let out=s.charAt(i-p.length);
+            if(map.has(out)){
+                let count=map.get(out);
+                count++;
+                map.set(out,count);
+                if(count===1) match--;
+            }
+            if(match===map.size){
+                res.push(i-p.length+1)
+            }
+        }
+        
+        
+        
+        
+        
+    }
+   return res; 
+    
+};
