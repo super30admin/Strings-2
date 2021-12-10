@@ -1,0 +1,71 @@
+//TC:- O(n)
+//SC:- O(1) Hashmap
+
+class Solution {
+    public List<Integer> findAnagrams(String s, String p) {
+        
+        
+        HashMap<Character, Integer> hm = new HashMap<>();
+        List<Integer> result = new ArrayList<>();
+        for(int i = 0; i<p.length(); i++)
+        {
+            char c = p.charAt(i);
+            
+            if(hm.containsKey(c))
+            {
+                hm.put(c,hm.get(c)+1);
+            }
+            
+            else
+            {
+                hm.put(c,1); 
+            }
+        }
+        
+        int match = 0;
+        
+        for(int i = 0; i<s.length(); i++)
+        {
+            char c = s.charAt(i);
+            //Incoming
+            if(hm.containsKey(c))
+            {
+                int count = hm.get(c);
+                count--;
+                hm.put(c,count);
+                
+                if(count == 0)
+                {
+                    match++;
+                }
+            }
+            
+            //Outgoing
+            if(i>=p.length())
+            {
+                char ch = s.charAt(i-p.length());
+                
+                if(hm.containsKey(ch))
+             {
+                int count = hm.get(ch);
+                count++;
+                hm.put(ch,count);
+                
+                if(count == 1)
+                {
+                    match--;
+                }
+             }
+                
+                
+            }
+            if(match == hm.size())
+                {
+                    result.add(i-p.length()+1);
+                }
+        }
+        
+        return result;
+        
+    }
+}
