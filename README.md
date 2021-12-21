@@ -53,3 +53,13 @@ Explanation:
 The substring with start index = 0 is "ab", which is an anagram of "ab".
 The substring with start index = 1 is "ba", which is an anagram of "ab".
 The substring with start index = 2 is "ab", which is an anagram of "ab".
+
+
+s30 - 5F5KUqzATKxm2bb
+Slack - sla@ckson@l12345
+sog26 - ch@seSon@l276
+sonal276@outlook.com - son@lmicrosoft
+deserve - deserveSon@l276
+costco - kumar.rajan2777@gmail.com - 2777@Jsk27
+twitter - twitterson@l12345
+wordpress - sonal.gupta27695@gmail.com - wordpressson@l12345
