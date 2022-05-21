@@ -6,7 +6,7 @@ import java.util.Map;
 public class AllAnagrams {
 
     // Sliding window approach
-    // TC: O(n)
+    // TC: O(n) length of s
     // SC: O(1) - since no matter how long is p string, we'll be storing only 26 characters in a map
     public List<Integer> findAnagrams(String s, String p) {
         if(p == null || p.length() == 0 || s == null || s.length() == 0) return new ArrayList<>();
