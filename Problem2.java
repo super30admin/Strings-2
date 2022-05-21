@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Map;
 
 public class Problem2 {
+    //Sliding Window
+    // TC - O(m + n)
+    // SC : O(n)
     public List<Integer> findAnagrams(String s, String p) {
         if (s == null || p == null || s.length() < p.length()) return new ArrayList<>();
 
