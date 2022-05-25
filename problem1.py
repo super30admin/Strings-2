@@ -1,6 +1,6 @@
 #Implement strStr()
 # // Time Complexity :  O(N*M) 
-# // Space Complexity : O(1)- as the max elements will only be 26 
+# // Space Complexity : O(1)
 # // Did this code successfully run on Leetcode :yes
 # // Any problem you faced while coding this :no
 #could be optimized more using the KMP method
