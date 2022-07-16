@@ -1,7 +1,7 @@
 #Time complexity : O(mn) where n is length of pattern and m is the length of source
 #Space complexity : O(1)
 #Did this code successfully run on Leetcode : Yes
-#youtube : https://youtu.be/VuyNvxOVryo
+#youtube : https://youtu.be/J50u_XbJDj8
 class Solution:
     def strStr(self, haystack: str, needle: str) -> int:
         #source string
