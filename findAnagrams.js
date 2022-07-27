@@ -16,7 +16,6 @@
     for(let curr of p){
         pArray[curr.charCodeAt(0) - 'a'.charCodeAt(0)]++;
     }
-    console.log(pArray);
     for(let i = 0; i < slength; i++) {
         sArray[s.charCodeAt(i) - 'a'.charCodeAt(0)]++;
         if(i >= plength) {
