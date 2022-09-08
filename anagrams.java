@@ -1,4 +1,4 @@
-//TC: O(n-p) n = length of the actual string
+//TC: O(n) n = length of the actual string
 //SC: O(p) p = length of anagram word to be stored in hashmap
 //leetcode: successful
 
@@ -35,4 +35,3 @@ class Solution {
         return res;
     }
 }
-

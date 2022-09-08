@@ -1,12 +1,3 @@
-//TC: O(h+n)
-//SC: O(1)
-//leetcode : successful
-
-
-
-
-
-//Bruteforce
 //TC: O(h*n)
 //SC: O(1)
 //leetcode : successful
@@ -33,7 +24,6 @@ class Solution {
         return -1;
     }
 }
-
 //using functions:
 class Solution {
     public int strStr(String haystack, String needle) {
