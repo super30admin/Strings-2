@@ -1,0 +1,36 @@
+#  438. Find All Anagrams in a String
+'''
+Leetcode all test cases passed: Yes
+class Solution:
+    def findAnagrams(self, s, p):
+      n is length of s
+      m is length of p
+      Time Complexity: O(m + n)
+      Space Complexity: O(1)
+'''
+class Solution:
+    def findAnagrams(self, s, p):
+        
+        fmap = {}
+        for ch in p: 
+            if ch not in fmap:
+                fmap[ch] = 0
+            fmap[ch] += 1
+        match = len(fmap)
+        result = []
+        for start in range(len(s)):
+            
+            #in
+            if s[start] in fmap:
+                fmap[s[start]] -= 1
+                if fmap[s[start]] == 0:
+                    match -= 1
+            #out
+            if start >= len(p):
+                if s[start - len(p)] in fmap:
+                    fmap[s[start - len(p)]] += 1
+                    if fmap[s[start - len(p)]] == 1:
+                        match += 1
+            if match == 0:
+                result.append(start - len(p) + 1)
+        return result  
