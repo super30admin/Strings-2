@@ -1,0 +1,23 @@
+#  28. Find the Index of the First Occurrence in a String
+'''
+Leetcode all test cases passed: Yes
+class Solution:
+    def strStr(self, haystack: str, needle: str) -> int:
+      n is length of haystack
+      m is length of needle
+      Time Complexity: O(m * n)
+      Space Complexity: O(1)
+'''
+class Solution:
+    def strStr(self, haystack: str, needle: str) -> int:
+        i,k,j = 0,0,0
+        while i <= len(haystack) - len(needle):
+            while haystack[k] == needle[j]:
+                k += 1
+                j += 1
+                if j == len(needle):
+                    return i  
+            i += 1
+            k = i
+            j = 0
+        return -1
