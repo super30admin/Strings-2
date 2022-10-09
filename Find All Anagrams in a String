@@ -1,0 +1,21 @@
+class Solution:
+    def findAnagrams(self, s: str, p: str) -> List[int]:
+        res = []
+        a = [0] * 128
+        for char in p:
+            a[ord(char)] += 1
+        curr = [0] * 128
+        l, r = 0, 0
+        while r < len(s):    
+            if r - l == len(p):
+                curr[ord(s[l])] -= 1
+                l += 1
+            curr[ord(s[r])] += 1
+            r += 1
+            if curr == a:
+                res.append(l)
+        return res
+    
+# Time Complexity: O(mn)
+# Space Complexity: O(1)
+# Successfully implemented on Leetcode
