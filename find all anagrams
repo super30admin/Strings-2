@@ -1,0 +1,42 @@
+class Solution {
+public:
+    vector<int> findAnagrams(string s, string p) {
+        if(s.length() == 0 || p.length() == 0){
+            return { };
+        }
+        unordered_map<char,int> map;
+        int match = 0;
+        for(int i =0; i<p.length(); i++){
+            map[p[i]]++;
+        }
+        vector<int> answer;
+        
+        for(int i = 0 ; i<s.length(); i++){
+            //if element found
+            if(map.find(s[i]) != map.end()){
+                int count = map[s[i]];
+                count--;
+                map[s[i]] = count;
+                if(count == 0){
+                    match++;
+                }
+            }
+            //moving ahead and skipping used element if it was in our map with elements of p string ( a , b, c, d) .. taking bcd, we gotta update the map that now we dont have occurance of a, hence we will reduce its count by 1
+            if( i >= p.length()){
+                if(map.find(s[i-p.length()]) != map.end()){
+                    int n = map[s[i-p.length()]];
+                    n++;
+                    map[s[i-p.length()]] = n;
+                    if(n==1){
+                        match--;
+                    }  
+                }
+            }
+        if(match == map.size()){
+            answer.push_back(i-p.length()+1);
+            }
+        }
+        
+    return answer;
+    }
+};
