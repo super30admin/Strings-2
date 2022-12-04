@@ -8,7 +8,7 @@ Space Complexity:  O(n)
         
 Did this code successfully run on Leetcode : Yes
 
-Heap Solution
+
 
 @name: Rahul Govindkumar_RN27JUL2022
 """
