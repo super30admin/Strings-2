@@ -1,4 +1,4 @@
-// Time Complexity : O(n) n is the length of s
+// Time Complexity : O(n) //n is the length of s
 // Space Complexity : O(1) at max 26 characters can be inserted at once in hashmap
 // Did this code successfully run on Leetcode : yes
 // Any problem you faced while coding this : no
