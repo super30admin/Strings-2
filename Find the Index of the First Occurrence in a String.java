@@ -1,4 +1,4 @@
-// Time Complexity = O(n)
+// Time Complexity = O(m + n)
 // Space Complexity = O(n)
 
 class Solution {
