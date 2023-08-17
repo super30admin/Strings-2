@@ -61,7 +61,7 @@ public:
 };
 
 // using Rabin karp ( rolling hash)
-// TC: O(n*m)
+// TC: O(n*m) for worstcase.. O(n+m) for best case
 // SC: O(1)
 
 
