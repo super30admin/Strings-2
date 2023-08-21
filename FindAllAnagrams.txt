@@ -1,0 +1,41 @@
+/**
+Time Complexity - O (m+n)
+Space Complexity - O(1) Fixed Space of 26 characters
+ */
+class Solution {
+    public List<Integer> findAnagrams(String s, String p) {
+        int n = s.length();
+        int m = p.length();
+        if (n < m) {
+            return new ArrayList<>();
+        }
+
+        Map<Character, Integer> sMap = new HashMap<>();
+        Map<Character, Integer> tMap = new HashMap<>();
+
+        // source
+        for(char c : p.toCharArray()) {
+            sMap.put(c, sMap.getOrDefault(c, 0)+1);
+        }
+
+        List<Integer> output = new ArrayList<>();
+        for (int i=0; i<n; i++) {
+
+            char c = s.charAt(i);
+            tMap.put(c, tMap.getOrDefault(c, 0) +1);
+
+            if (i >= m) {
+                char out = s.charAt(i -m);
+                if (tMap.get(out) == 1) {
+                    tMap.remove(out);
+                } else {
+                    tMap.put(out, tMap.get(out) -1);
+                }
+            }
+            if (sMap.equals(tMap)) {
+                output.add(i -m +1);
+            }
+        }
+        return output;
+    }
+}
