@@ -1,4 +1,4 @@
-Time - O()
+Time - O(m*n)
 Space - O()
 class Solution {
 public:
