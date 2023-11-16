@@ -1,0 +1,26 @@
+#time complexity: O(len(s))
+#space complexity: O(1)
+#did it run on leetcode: yes
+class Solution:
+    def findAnagrams(self, s: str, p: str) -> List[int]:
+        result = []
+        len_s, len_p = len(s), len(p)
+
+        if len_s < len_p: return result
+        count_p = Counter(p)
+        count_window = Counter(s[:len_p])
+
+        if count_p == count_window:
+            result.append(0)
+        
+        for i in range(len_p,len_s):
+            count_window[s[i-len_p]] -=1
+            if count_window[s[i-len_p]] == 0:
+                del count_window[s[i-len_p]]
+            count_window[s[i]]+=1
+
+            if count_p == count_window:
+                result.append(i-len_p+1)
+        
+        return result
+        
