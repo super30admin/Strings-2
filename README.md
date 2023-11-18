@@ -10,6 +10,7 @@ Example 1:
 
 Input: haystack = "hello", needle = "ll"
 Output: 2
+
 Example 2:
 
 Input: haystack = "aaaaa", needle = "bba"
@@ -19,6 +20,25 @@ Clarification:
 What should we return when needle is an empty string? This is a great question to ask during an interview.
 
 For the purpose of this problem, we will return 0 when needle is an empty string. This is consistent to C's strstr() and Java's indexOf().
+
+Code: 
+```c++
+    int strStr(string haystack, string needle) {
+        for (int i = 0; ; ++i) {
+            for (int j = 0; ; ++j) {
+                if (j == needle.length()) {
+                    return i;
+                }
+                if (i + j == haystack.length()) {
+                    return -1;
+                }
+                if (needle[j] != haystack[i + j]) {
+                    break;
+                }
+            }
+        }
+    }
+```
 
 ## Problem2 
 
@@ -41,6 +61,7 @@ Output:
 Explanation:
 The substring with start index = 0 is "cba", which is an anagram of "abc".
 The substring with start index = 6 is "bac", which is an anagram of "abc".
+
 Example 2:
 
 Input:
@@ -53,3 +74,28 @@ Explanation:
 The substring with start index = 0 is "ab", which is an anagram of "ab".
 The substring with start index = 1 is "ba", which is an anagram of "ab".
 The substring with start index = 2 is "ab", which is an anagram of "ab".
+
+Code : 
+```c++
+    vector<int> findAnagrams(string s, string p) 
+    {
+        vector<int> freq_p(26), freq_s(26);
+        for(auto &it:p) freq_p[it-'a']++;
+
+        int low=0;
+        vector<int> res;
+        for(int high=0; high<s.size(); high++)
+        {
+            freq_s[s[high]-'a']++;
+            if((high-low+1==p.size()) && (freq_p==freq_s))
+                res.push_back(low);
+
+            if(high-low+1 >= p.size())
+            {
+                freq_s[s[low]-'a']--;
+                low++;
+            }
+        }
+        return res; 
+    }
+```
