@@ -1,0 +1,54 @@
+/*
+solution to avoid integer overflow (without using BigInteger) in Rabin Karp's rolling hash algo.*/
+
+class Solution {
+    public int strStr(String haystack, String needle) {
+        int m = haystack.length(); int n = needle.length();
+        if(m < n) return -1;
+        int hashHay = 0;
+        int hashNeedle = 0;
+        int posFac = 1;
+        int d = 26;   // number of cahracters
+        int q = 11;   //prime number to aviod integer overflow
+        //posFac = (long)Math.pow(d, n-1)%q;
+        //this above line is same as that of the below one. Since we are multiplying again and again in pow function
+        //before taking modulo we end up with integer overflow. So we are calculating the power as below.
+        posFac = 1;
+        for (int i = 0; i < n - 1; i++)
+        {
+            posFac = (posFac * d) % q;    // modulo with any prime to reduce the value
+        }
+        for(int i=0; i<n; i++){
+            char c = needle.charAt(i);
+            hashNeedle = (hashNeedle * d + (c - 'a' + 1) ) % q;
+        }
+        for(int i=0; i<m; i++){
+            if( i >= n){
+                char out = haystack.charAt(i-n);
+                hashHay = hashHay - ( out - 'a' + 1) * posFac;
+           }
+            char in = haystack.charAt(i);
+            hashHay = (hashHay * d + (in - 'a' + 1)) % q;
+            if(hashHay < 0) hashHay = hashHay + q;   // if the hash value becomes negative make it to positive
+            if(hashHay == hashNeedle)
+            {
+             // since we are taking modulo on the hash value it is possible to get same hash value for non matching
+            // sub strigs (Spurious Hit). So check for the matching of the pattern with the substring. This will increase TC. So in worst case it becomes O(m*n)
+                boolean found = true;
+                if(i < needle.length()-1){
+                    found  = false;
+                }
+                for (int j = 0; j < n; j++) {
+                    if(i>= n-1 && haystack.charAt(i-(n-1)+j) != needle.charAt(j))
+                    {
+                        found = false;
+                        break;
+                    }
+                }
+                if(found)
+                return i-n+1;
+            }
+        }
+        return -1;
+    }
+}
