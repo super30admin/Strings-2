@@ -2,6 +2,8 @@
 TC: O(n) - length of s since p will be smaller than or equal to s
 SC: O(1) - we are only using bunch of pointers and ascii values to calculate
 '''
+from typing import List
+
 class Solution:
     def findAnagrams(self, s: str, p: str) -> List[int]:
         if len(s)<len(p):
@@ -25,4 +27,5 @@ class Solution:
             r+=1
         return res
 s = Solution()
-print(s.findAnagrams())
+print(s.findAnagrams("cbaebabacd", "abc"))
+print(s.findAnagrams("abab", "ab"))
