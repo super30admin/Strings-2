@@ -1,0 +1,26 @@
+Time complexity: O(m*n); m is the length of string 1 and n is the length of string 2
+Space complexity: O(1)
+Approach: To solve this problem, Traverse through the haystack until the (total length of it) minus (length of needle).
+If first character dont match then move to next element. If the first elements of haystack and needle match then keep 
+checking until characters dont match. During the traversal is all the characters match then return the start index from haystack.
+ther eis robins algorith for optimization, which uses hashing technique. to be followed in trainers lecture.
+class Solution {
+    public int strStr(String haystack, String needle) {
+        int len1=haystack.length();
+        int len2=needle.length();
+        int i=0;
+        while(i<=len1-len2){
+            //reason we have i value as zero is when len1,len2 are of size 1.
+            int j=0;            
+            if(haystack.charAt(i) == needle.charAt(j)){
+                int k=i;
+                while(haystack.charAt(k) == needle.charAt(j)){
+                    k++; j++;
+                    if(len2==j) return i;
+                }
+            }                        
+            i++;           
+        }
+        return -1;
+    }
+}

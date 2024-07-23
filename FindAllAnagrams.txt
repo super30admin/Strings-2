@@ -1,0 +1,39 @@
+Time Complexity: O(n)
+Space Complexity: O(1)
+Approach: Traverse through the string and incoming element and outgoing element keep changing. 
+If there is an incoming element check if element is present in the map or not and decrement the count. Get the count (so called frequency).
+If there is an outgoing element increment the count. Frequency can go in negatives for an element in the map, hence increment the match only when the frequency is zero.
+In the brute force technique find all words of length of string p and check if character count in the input matches with the p or not.
+class Solution {
+    public List<Integer> findAnagrams(String s, String p) {
+        Map<Character, Integer> hashMap=new HashMap<Character, Integer>();
+        int match=0;
+        List<Integer> output=new ArrayList<>();
+        for(int i=0;i<p.length();i++){
+            hashMap.put(p.charAt(i), hashMap.getOrDefault(p.charAt(i), 0)+1);
+        }
+        int n=p.length();
+        for(int i=0;i<s.length();i++){   
+            //for the first few input elements that are less than the size of second string length
+            char ch=s.charAt(i);
+            if(hashMap.containsKey(ch)){
+                   int frequency=hashMap.get(ch)-1;
+                   hashMap.put(ch, frequency);              
+                   if(frequency==0) match++;   
+            }   
+            //Below if clause is for outgoing elements          
+            if(i>=n){
+                ch=s.charAt(i-n);
+                if(hashMap.containsKey(ch)){
+                    int frequency = hashMap.get(ch)+1;
+                    hashMap.put(ch,frequency);
+                    if(frequency==1) match--;
+                }                               
+            }
+            if(match==hashMap.size())
+                output.add(i-n+1);
+                //index-(length of second string)+1 will return start index of anagram string
+        }
+        return output;
+    }
+}
