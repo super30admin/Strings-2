@@ -1,0 +1,38 @@
+import java.math.BigInteger;
+
+class Solution {
+    public int strStr(String haystack, String needle) {
+        int m = haystack.length();
+        int n = needle.length();
+
+        if (n == 0) return 0;  // Edge case: if needle is an empty string
+
+        BigInteger hashP = BigInteger.ZERO;
+        BigInteger base = BigInteger.valueOf(26);
+
+        for (int i = 0; i < needle.length(); i++) {
+            char c = needle.charAt(i);
+            hashP = hashP.multiply(base).add(BigInteger.valueOf(c - 'a' + 1));
+        }
+
+        BigInteger k1 = base.pow(n - 1);
+        BigInteger hashS = BigInteger.ZERO;
+
+        for (int i = 0; i < haystack.length(); i++) {
+            if (i >= n) {
+                char out = haystack.charAt(i - n);
+                hashS = hashS.subtract(BigInteger.valueOf(out - 'a' + 1).multiply(k1));
+            }
+            char in = haystack.charAt(i);
+            hashS = hashS.multiply(base).add(BigInteger.valueOf(in - 'a' + 1));
+
+            if (i >= n - 1 && hashP.equals(hashS)) {
+                return i - n + 1;
+            }
+        }
+
+        return -1;
+
+        
+    }
+}
