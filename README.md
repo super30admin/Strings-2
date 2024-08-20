@@ -20,6 +20,48 @@ What should we return when needle is an empty string? This is a great question t
 
 For the purpose of this problem, we will return 0 when needle is an empty string. This is consistent to C's strstr() and Java's indexOf().
 
+
+
+import java.math.BigInteger;
+class Solution {
+    public int strStr(String haystack, String needle) {
+        // long hash=0l;
+        if(needle.length()>haystack.length())
+            return -1;
+        BigInteger hash = BigInteger.ZERO;
+        BigInteger k = BigInteger.valueOf(26); 
+        for(int i=0;i<needle.length();i++)
+        {
+            char c=needle.charAt(i);
+            // hash=hash*26+(c-'a'+1);
+            hash=hash.multiply(k).add(BigInteger.valueOf(c-'a'+1));
+        }
+        // long kl=(long)Math.pow(26,needle.length()-1);
+        // long hash2=0l;
+        BigInteger hash2=BigInteger.ZERO;
+        for(int i=0;i<haystack.length();i++)
+        {
+            if(i>=needle.length())
+            {
+                // char d=haystack.charAt(i-needle.length());
+                // hash2=hash2-(d-'a'+1)*kl;
+                hash2=hash2.mod(k.pow(needle.length()-1));
+            }
+            char c=haystack.charAt(i);
+            // hash2=hash2*26+(c-'a'+1);
+            hash2=hash2.multiply(k).add(BigInteger.valueOf(c-'a'+1));
+            // if(hash==hash2){
+            //     return i-needle.length()+1;
+            // }
+            if(hash.equals(hash2)){
+                return i-needle.length()+1;
+            }
+        }
+        return -1;
+        
+    }
+}
+
 ## Problem2 
 
 Find All Anagrams in a String (https://leetcode.com/problems/find-all-anagrams-in-a-string/)
@@ -53,3 +95,37 @@ Explanation:
 The substring with start index = 0 is "ab", which is an anagram of "ab".
 The substring with start index = 1 is "ba", which is an anagram of "ab".
 The substring with start index = 2 is "ab", which is an anagram of "ab".
+
+class Solution {
+    public List<Integer> findAnagrams(String s, String p) {
+        List<Integer> result=new ArrayList<Integer>();
+        HashMap<Character,Integer> hmap=new HashMap<>();
+        int match=0;
+        int n=s.length();
+        for(int i=0;i<p.length();i++){
+            char c=p.charAt(i);
+            hmap.put(c,hmap.getOrDefault(c,0)+1);
+        }
+        for(int i=0;i<n;i++){
+            char c=s.charAt(i);
+            if(hmap.containsKey(c)){
+                int cnt=hmap.get(c)-1;
+                hmap.put(c,cnt);
+                if(cnt==0)
+                    match++;
+            }
+            if(i>=p.length()){
+                char out=s.charAt(i-p.length());
+                if(hmap.containsKey(out)){
+                    int cnt=hmap.get(out)+1;
+                    hmap.put(out,cnt);
+                    if(cnt==1)
+                        match--;
+                }
+            }
+            if(match==hmap.size())
+                result.add(i-p.length()+1);
+        }
+        return result;
+    }
+}
