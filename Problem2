@@ -1,0 +1,54 @@
+Time:  O(sl + pl)
+Space: O(1)
+
+
+class Solution {
+    public List<Integer> findAnagrams(String s, String p) 
+    {
+        List<Integer> result = new ArrayList<>();
+        int sl = s.length();
+        int pl = p.length();
+        if(pl > sl) return result;
+        HashMap<Character, Integer> map = new HashMap<>();
+        for(int i=0; i<p.length();i++)
+        {
+            char c=p.charAt(i);
+            map.put(c, map.getOrDefault(c,0) + 1);
+        }
+        int match = 0;
+        for(int i=0;i<sl;i++)
+        {
+            char in = s.charAt(i);
+            if(map.containsKey(in))
+            {
+                int cnt = map.get(in);
+                cnt--;
+                map.put(in,cnt);
+                if(cnt == 0)
+                {
+                    match++;
+                }
+            }
+            if(i>=pl)
+            {
+                char out = s.charAt(i-pl);
+                if(map.containsKey(out))
+                {
+                    int cnt = map.get(out);
+                    cnt++;
+                    map.put(out, cnt);
+                    if(cnt == 1)
+                    {
+                        match--;
+                    }
+                }
+            }
+            if(match == map.size())
+            {
+                result.add(i-pl + 1);
+
+            }
+        }
+        return result;
+    }
+}
