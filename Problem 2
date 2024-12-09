@@ -1,0 +1,23 @@
+class Solution:
+    def findAnagrams(self, s: str, p: str) -> List[int]:
+        if len(s)<len(p):
+            return []
+        else:
+            res=[]
+            n=len(p)
+            map=dict()
+            #counting letters in p
+            for i in string.ascii_lowercase:
+                map.update({i:p.count(i)})
+            window=s[0:n]
+            mapw=dict()
+            for i in string.ascii_lowercase:
+                mapw.update({i:window.count(i)})
+            if map==mapw:
+                res.append(0)
+            for j in range(1,len(s)-len(p)+1):
+                mapw.update({s[j-1]:mapw[s[j-1]]-1})
+                mapw.update({s[j+n-1]:mapw[s[j+n-1]]+1})
+                if map==mapw:
+                    res.append(j)
+            return res
