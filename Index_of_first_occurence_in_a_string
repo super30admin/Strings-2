@@ -1,0 +1,85 @@
+function strStr(haystack: string, needle: string): number {
+    // let m = needle.length;
+    // let n = haystack.length;
+
+    // for ( let windowstart = 0; windowstart <= n-m; windowstart++){
+    //     for(let i =0; i<m; i++){
+    //         if (needle[i] !== haystack[i+ windowstart]) {
+    //             break;
+    //         }
+    //         if (i === m-1) {
+    //             return windowstart
+    //         }
+    //     }
+    // }
+
+    // return -1;
+    //timeComplexity -> o(mxn)
+    //spaceComplexity -> o(1)
+
+    let m = haystack.length;
+    let n = needle.length;
+    let lps: number[] = [];
+    lps[0] = 0;
+    calculateLps(needle, lps);
+    let i = 0;
+    let j = 0;
+    console.log(`lps: ${lps}`)
+    while (i < haystack.length) {
+            console.log(`inside while`)
+        if (haystack[i] === needle[j]) {
+             console.log(`inside equal`)
+            j++;
+            i++;
+            if (j === n) { return i - j }
+        } else {
+            if (j > 0) {
+                console.log(`before j>0 lps: ${lps}, haystack[i]: ${haystack[i]}, needle[j]: ${needle[j]}, j: ${j}, i: ${i}, lps[j-1]: ${lps[j-1]}`)
+                j = lps[j - 1]
+                console.log(`after j>0 lps: ${lps}, haystack[i]: ${haystack[i]}, needle[j]: ${needle[j]}, j: ${j}, i: ${i}, lps[j]: ${lps[j]}`)
+            } else {
+                console.log(`after j=0 lps: ${lps}, haystack: ${haystack}, needle: ${needle}`)
+
+                i++
+            }
+        }
+    }
+
+    return -1;
+
+};
+
+const calculateLps = (needle: string, lps: number[]) => {
+    let i = 1;
+    let j = 0;
+
+    while (i < needle.length) {
+
+        if (needle[i] === needle[j]) {
+            // console.log(`needle[i]: ${needle[i]}, needle[j]: ${needle[j]}`)
+            // console.log(`before i===j lps: ${lps}`)
+            j++;
+            lps[i] = j;
+            i++;
+            // console.log(`after i===j lps: ${lps}`)
+
+        } else {
+            if (j > 0) {
+                // console.log(`needle[i]: ${needle[i]}, needle[j]: ${needle[j]}`)
+                // console.log(`before i!==j lps: ${lps}`)
+                j = lps[j - 1]
+                // console.log(`after i!==j lps: ${lps}`)
+            } else {
+                // console.log(`needle[i]: ${needle[i]}, needle[j]: ${needle[j]}`)
+                // console.log(`before i!==j and j ==0 lps: ${lps}`)
+                lps[i] = 0;
+                // console.log(`after i!==j and j ==0 lps: ${lps}`)
+                i++;
+            }
+        }
+    }
+
+    //time o(n) - creating lps, and going through string
+    //space o(m) - store lps
+
+}
