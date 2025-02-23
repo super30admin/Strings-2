@@ -1,0 +1,10 @@
+class Solution:
+    def strStr(self, haystack: str, needle: str) -> int:
+        m, n = len(haystack), len(needle)
+        if n == 0:
+            return 0  # Edge case: Empty needle
+        
+        for i in range(m - n + 1):  # Slide window across haystack
+            if haystack[i:i+n] == needle:  # Check substring match
+                return i  # Found at index i
+        return -1  # Not found

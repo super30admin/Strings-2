@@ -1,0 +1,44 @@
+from typing import List
+
+class Solution:
+    def findAnagrams(self, s: str, p: str) -> List[int]:
+        if len(p) > len(s):
+            return []
+        
+        hashMap = dict()
+        result = []
+        
+        # Initialize hashMap 
+        for i in range(len(p)):
+            c = p[i]
+            if c not in hashMap:
+                hashMap[c] = 1
+            else:
+                hashMap[c] = hashMap[c] + 1
+        
+        match = 0  # To track
+        window_size = len(p)
+
+        # Sliding window 
+        for i in range(len(s)):
+            inc = s[i]
+            
+            # Expanding window 
+            if inc in hashMap:
+                hashMap[inc] -= 1
+                if hashMap[inc] == 0:
+                    match += 1  
+            
+            # Shrink window
+            if i >= window_size:
+                out = s[i - window_size]
+                if out in hashMap:
+                    if hashMap[out] == 0:
+                        match -= 1  
+                    hashMap[out] += 1  
+            
+            # If all characters match, store the starting index
+            if match == len(hashMap):
+                result.append(i - window_size + 1)
+        
+        return result
