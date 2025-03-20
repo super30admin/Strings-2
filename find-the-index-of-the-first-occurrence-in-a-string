@@ -1,0 +1,71 @@
+// Time Complexity :O(m-n * n) ->O(m*n)
+// Space Complexity :O(1)
+// // Did this code successfully run on Leetcode :yes
+// Any problem you faced while coding this :no
+
+// Your code here along with comments explaining your approach:
+
+class Solution {
+    public int strStr(String haystack, String needle) {
+        int m = haystack.length();
+        int n = needle.length();
+        // nested loop
+        for (int i = 0; i <= m - n; i++) { // O(m-n)
+            // where needle of char matches from haystack then starting j pointer
+            if (haystack.charAt(i) == needle.charAt(0)) {
+                int j = 0;
+                int k = i;
+                while (haystack.charAt(k) == needle.charAt(j)) { // O(n)
+                    // where match occures incrementing both i and j
+                    j++;
+                    k++;
+                    if (j == n) { // when j reaches end of needle then it means the entire needle string found in
+                                  // haystack so return i
+                        return i;
+                    }
+                }
+
+            }
+
+        }
+
+        return -1; // false case
+    }
+}
+
+
+
+// Time Complexity :O(n) +O(m) ->O(n+m)
+// Space Complexity :O(1)
+// Did this code successfully run on Leetcode :it was running but not submitted fr larger length of soruce string so i need to do it with biginteger
+// Any problem you faced while coding this :no
+
+// Your code here along with comments explaining your approach:robin karp rolling hash algorithm
+
+class Solution {
+    public int strStr(String haystack, String needle) {
+        int m = haystack.length();
+        int n = needle.length();
+        long needleHash=0;
+        for(int i=0;i<n;i++){ //O(n)
+        char ch=needle.charAt(i);
+         needleHash=needleHash*100+(ch-'a'+1); //calculating hash for needle 
+        }
+      long sourceHash=0;
+      long k=(long)Math.pow(100,n-1);
+      for(int i=0;i<m;i++){ //O(m)
+        //out going char while sliding window
+        if(i >= n){ // out
+            char out=haystack.charAt(i-n);
+            sourceHash=sourceHash-((out-'a'+1)*k); //substracting contribution of outgoing eleemnt from sourcehash
+        }
+        //in
+         char in=haystack.charAt(i);// incoming char while sliding window
+        sourceHash=sourceHash*100+(in-'a'+1); //adding incoming char contribution to sourcehash
+        if(sourceHash == needleHash ){
+            return i-n+1; //where ever if found match of source adn needlehash
+      }
+    }
+    return-1; // false case
+}
+}

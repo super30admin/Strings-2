@@ -1,0 +1,97 @@
+// Time Complexity :O(m)+O(n-m)O(m) =>O(n*m)
+// Space Complexity :O(1)
+// // Did this code successfully run on Leetcode :yes
+// Any problem you faced while coding this :no
+
+
+// Your code here along with comments explaining your approach:
+
+
+class Solution {
+    public List<Integer> findAnagrams(String s, String p) {
+        int m = p.length();
+        int n = s.length();
+        HashMap<Character, Integer> originalMap = new HashMap<>();
+        List<Integer> myList = new ArrayList<>();
+        // making frequency map for pattern of length m
+        for (int i = 0; i < m; i++) { // O(m)
+            char ch = p.charAt(i);
+            originalMap.put(ch, originalMap.getOrDefault(ch, 0) + 1);
+        }
+        // making all possible permutations of length m from string s of length n so it
+        // O(n*m)
+        for (int i = 0; i <= n - m; i++) { // O(n-m) partitions
+        System.out.println("i"+i);
+        HashMap<Character, Integer> myMap = new HashMap<>(originalMap); // as we should give all starting indices where i find anagram in s so i should not change main hashmap of p
+            String sb = s.substring(i, i+m); // O(n*m)
+            for (int k = 0; k < sb.length(); k++) {
+                char ch = sb.charAt(k);
+                if (myMap.containsKey(ch)) {
+                    myMap.put(ch, myMap.get(ch) - 1);
+                    myMap.remove(ch, 0);
+                
+                if (myMap.isEmpty()) {
+                    myList.add(i);
+                }
+                }
+            }
+
+        }
+        return myList;
+    }
+}
+
+// Time Complexity :O(m)+O(n)
+// Space Complexity :O(1)
+// // Did this code successfully run on Leetcode :yes
+// Any problem you faced while coding this :no
+// Your code here along with comments explaining your approach:
+class Solution {
+    public List<Integer> findAnagrams(String s, String p) {
+        int m = p.length();
+        int n = s.length();
+        HashMap<Character, Integer> pMap = new HashMap<>();
+        List<Integer> myList = new ArrayList<>();
+        // making frequency map for pattern of length m
+        for (int i = 0; i < m; i++) { // O(m)
+            char ch = p.charAt(i);
+            pMap.put(ch, pMap.getOrDefault(ch, 0) + 1);
+        }
+        // sliding window
+        int match = 0;
+        for (int i = 0; i < n; i++) { // O(n)
+            char in = s.charAt(i);
+            // if incoming char exist in map decrement it and updating if it becomes zero
+            // then incrementing match count as we found required no.of char from current
+            // window for anagram
+            if (pMap.containsKey(in)) {
+                int count = pMap.get(in);
+                count--;
+                if (count == 0) {
+                    match++;
+                }
+                pMap.put(in, count);
+            }
+            // if outgoing char exist in map incrementing it count as if it becomes one then
+            // decremeneting match count and updating char in map
+            if (i >= m) {
+                char out = s.charAt(i - m);
+                if (pMap.containsKey(out)) {
+                    int count = pMap.get(out);
+                    count++;
+                    if (count == 1) {
+                        match--;
+                    }
+                    pMap.put(out, count);
+                }
+            }
+            // at any point of time match count is map size then it means we found anagram
+            // so adding starting index position of window to list
+            if (match == pMap.size()) {
+                System.out.println("" + i + " " + m);
+                myList.add(i - m + 1);
+            }
+        }
+        return myList;
+    }
+}
