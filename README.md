@@ -1,7 +1,7 @@
 # Strings-2
 
+## Problem1
 
-## Problem1 
 Implement strStr() (https://leetcode.com/problems/implement-strstr/)
 
 Return the index of the first occurrence of needle in haystack, or -1 if needle is not part of haystack.
@@ -20,7 +20,7 @@ What should we return when needle is an empty string? This is a great question t
 
 For the purpose of this problem, we will return 0 when needle is an empty string. This is consistent to C's strstr() and Java's indexOf().
 
-## Problem2 
+## Problem2
 
 Find All Anagrams in a String (https://leetcode.com/problems/find-all-anagrams-in-a-string/)
 
