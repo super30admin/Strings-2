@@ -1,0 +1,33 @@
+// TC - O(mxn)
+// SC- O(1)
+
+class Solution {
+    public int strStr(String haystack, String needle) {
+
+       if(needle.length() > haystack.length()){
+            return -1;
+       }
+
+       int i=0;
+       int m=haystack.length();
+       int n=needle.length();
+
+       while(i<m){
+        if(haystack.charAt(i) == needle.charAt(0)){
+            int k=i;
+            int j=0;
+            while((k<m && j<n) && (haystack.charAt(k) == needle.charAt(j))){
+                k++;
+                j++;
+            }
+            if(j==n){
+                return i;
+            }
+        }
+        i++;
+       }
+
+       return -1;
+
+    }
+}
