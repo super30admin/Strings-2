@@ -1,0 +1,50 @@
+// Time Complexity:O(m + n) — m for scanning haystack, n for building LPS
+
+// Space Complexity: O(n) — for the LPS array
+
+
+class Solution {
+    int[] lps;
+    int n;
+
+    public int strStr(String haystack, String needle) {
+        this.n = needle.length();
+        this.lps = new int[n];
+        preprocess(needle);
+        int i = 0, j = 0;
+
+        while (i < haystack.length()) {
+            if (haystack.charAt(i) == needle.charAt(j)) {
+                i++; j++;
+                if (j == n) {
+                    return i - j;
+                }
+            } else if (haystack.charAt(i) != needle.charAt(j) && j > 0) {
+                j = lps[j - 1];
+            } else {
+                i++;
+            }
+        }
+
+        return -1;
+    }
+
+    private void preprocess(String needle) {
+        lps[0] = 0;
+        int i = 1;
+        int j = 0;
+
+        while (i < n) {
+            if (needle.charAt(i) == needle.charAt(j)) {
+                j++;
+                lps[i] = j;
+                i++;
+            } else if (needle.charAt(i) != needle.charAt(j) && j > 0) {
+                j = lps[j - 1];
+            } else {
+                lps[i] = 0;
+                i++;
+            }
+        }
+    }
+}
