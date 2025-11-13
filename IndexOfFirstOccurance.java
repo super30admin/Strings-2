@@ -9,6 +9,8 @@
 // Use sliding window to find hash value
 // check if it matches required string hash
 
+import java.math.BigInteger;
+
 class Solution {
     public int strStr(String haystack, String needle) {
 
@@ -26,7 +28,7 @@ class Solution {
             match = match.multiply(k).add(BigInteger.valueOf(needle.charAt(i)-'a'+1));
         }
 
-        System.out.println(match.toString());
+        // System.out.println(match.toString());
 
         // in and out char sliding window
         for(int i =0;i<hl;i++){
@@ -34,14 +36,17 @@ class Solution {
             //out char - correcting hash
             // 123 -> 23
             if(i>=nl){
-                hash = hash.mod(k.pow(nl-1));
+                char out = haystack.charAt(i-nl);
+                hash = hash.subtract(
+                    BigInteger.valueOf(out-'a'+1).multiply(k.pow(nl-1))
+                );
             }
             
             //in char
             char in = haystack.charAt(i);
             hash = hash.multiply(k).add(BigInteger.valueOf(in-'a'+1));
 
-            System.out.println(hash.toString());
+            // System.out.println(hash.toString());
 
             //return index
             if(hash.equals(match)) return i-nl+1;
