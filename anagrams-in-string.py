@@ -1,3 +1,5 @@
+# time O(n+m)
+# space O(1) for ascii characters
 class Solution:
     def findAnagrams(self, s: str, p: str) -> List[int]:
         result = []
